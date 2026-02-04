@@ -1,0 +1,44 @@
+{
+  "name": "moovit-client",
+  "version": "1.0.0",
+  "description": "TypeScript client library for the Moovit public transit API",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "test:integration": "jest --config jest.integration.config.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["moovit", "transit", "public-transport", "api-client", "israel"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^24.36.1",
+    "protobufjs": "^7.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^22.15.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "@types/jest": "^29.5.14",
+    "eslint": "^8.57.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
