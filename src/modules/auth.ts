@@ -203,14 +203,14 @@ export function resolveConfig(config: Partial<ResolvedConfig>): ResolvedConfig {
   const userKey = config.userKey || generateUserKey();
 
   return {
-    metroId: config.metroId ?? 1,
+    metroId: config.metroId ?? 61, // Paris, France
     language: config.language ?? 'EN',
     userKey,
     customerId: config.customerId ?? '4908',
     puppeteerOptions: config.puppeteerOptions ?? {},
     tokenRefreshInterval: config.tokenRefreshInterval ?? 300000, // 5 minutes
-    defaultLat: config.defaultLat ?? 32.0853, // Tel Aviv
-    defaultLon: config.defaultLon ?? 34.7818,
+    defaultLat: config.defaultLat ?? 48.8566, // Paris
+    defaultLon: config.defaultLon ?? 2.3522,
     debug: config.debug ?? false,
   };
 }

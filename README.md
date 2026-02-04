@@ -10,7 +10,7 @@ TypeScript client library for the Moovit public transit API. Provides route plan
 
 ## Features
 
-- **Route Planning** - Multi-modal routes (bus, train, taxi, bike, scooter)
+- **Route Planning** - Multi-modal routes (bus, train, metro, taxi, bike, scooter)
 - **Real-time Arrivals** - Live ETAs with vehicle tracking
 - **Location Search** - Text search with autocomplete
 - **Service Alerts** - Disruption notifications
@@ -33,14 +33,14 @@ npm install moovit-client
 import { MoovitClient } from 'moovit-client';
 
 async function main() {
-  const client = new MoovitClient({ metroId: 1 }); // 1 = Israel
+  const client = new MoovitClient({ metroId: 61 }); // 61 = Paris, France
   await client.initialize();
 
   try {
     // Search routes using text search
     const routes = await client.routes.search({
-      from: { type: 'text', query: 'Tel Aviv Central Bus Station' },
-      to: { type: 'text', query: 'Jerusalem Central Station' },
+      from: { type: 'text', query: 'Gare du Nord, Paris' },
+      to: { type: 'text', query: 'Tour Eiffel, Paris' },
     });
 
     console.log(`Found ${routes.itineraries.length} routes`);
@@ -62,13 +62,13 @@ The library supports three ways to specify locations:
 
 ```typescript
 // 1. Coordinates (direct lat/lon)
-{ type: 'coordinates', lat: 32.0853, lon: 34.7818 }
+{ type: 'coordinates', lat: 48.8566, lon: 2.3522 } // Paris center
 
 // 2. Stop ID
-{ type: 'stopId', id: 72956 }
+{ type: 'stopId', id: 123456 }
 
 // 3. Text search (uses Moovit's location API)
-{ type: 'text', query: 'Dizengoff Center' }
+{ type: 'text', query: 'Champs-Élysées, Paris' }
 ```
 
 ## API Reference
@@ -77,8 +77,8 @@ The library supports three ways to specify locations:
 
 ```typescript
 const result = await client.routes.search({
-  from: { type: 'text', query: 'Tel Aviv' },
-  to: { type: 'coordinates', lat: 31.7683, lon: 35.2137 },
+  from: { type: 'text', query: 'Gare de Lyon, Paris' },
+  to: { type: 'coordinates', lat: 48.8738, lon: 2.2950 }, // Arc de Triomphe
   departureTime: new Date(),  // optional
 });
 
@@ -96,7 +96,7 @@ for (const itinerary of result.itineraries) {
 
 ```typescript
 const arrivals = await client.lines.getArrivals([
-  { lineId: 6623410, stopId: 72956 },
+  { lineId: 123456, stopId: 789012 },
 ]);
 
 for (const stop of arrivals) {
@@ -114,7 +114,7 @@ const agencies = await client.lines.getAgencies();
 
 ```typescript
 // Search locations by text (autocomplete)
-const results = await client.locations.search('Dizengoff');
+const results = await client.locations.search('Montmartre');
 
 for (const result of results) {
   console.log(`${result.name} (${result.type}) at ${result.lat}, ${result.lon}`);
@@ -125,7 +125,7 @@ for (const result of results) {
 
 ```typescript
 const alerts = await client.alerts.getAlerts();
-const details = await client.alerts.getAlertDetails(alertId, 'en');
+const details = await client.alerts.getAlertDetails(alertId, 'fr');
 ```
 
 ### Images
@@ -139,7 +139,7 @@ const images = await client.images.getImages([13560, 291729]);
 
 ```typescript
 interface MoovitClientConfig {
-  metroId?: number;              // Metro area ID (default: 1 = Israel)
+  metroId?: number;              // Metro area ID (default: 61 = Paris)
   language?: string;             // Language code (default: 'EN')
   userKey?: string;              // User identifier (auto-generated)
   tokenRefreshInterval?: number; // Token refresh in ms (default: 300000)
@@ -147,6 +147,20 @@ interface MoovitClientConfig {
   debug?: boolean;               // Enable debug logging (default: false)
 }
 ```
+
+### Common Metro IDs
+
+| Metro ID | City |
+|----------|------|
+| 61 | Paris, France |
+| 938 | Lyon, France |
+| 941 | Marseille, France |
+| 2689 | Bordeaux, France |
+| 948 | Toulouse, France |
+| 945 | Nice, France |
+| 1 | Tel Aviv, Israel |
+| 2 | New York, USA |
+| 3 | London, UK |
 
 ## Error Handling
 
