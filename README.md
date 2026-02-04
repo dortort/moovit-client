@@ -33,7 +33,7 @@ npm install moovit-client
 import { MoovitClient } from 'moovit-client';
 
 async function main() {
-  const client = new MoovitClient({ metroId: 61 }); // 61 = Paris, France
+  const client = new MoovitClient({ metroId: 662 }); // 662 = Paris, France
   await client.initialize();
 
   try {
@@ -139,7 +139,7 @@ const images = await client.images.getImages([13560, 291729]);
 
 ```typescript
 interface MoovitClientConfig {
-  metroId?: number;              // Metro area ID (default: 61 = Paris)
+  metroId?: number;              // Metro area ID (default: 662 = Paris)
   language?: string;             // Language code (default: 'EN')
   userKey?: string;              // User identifier (auto-generated)
   tokenRefreshInterval?: number; // Token refresh in ms (default: 300000)
@@ -152,15 +152,17 @@ interface MoovitClientConfig {
 
 | Metro ID | City |
 |----------|------|
-| 61 | Paris, France |
-| 938 | Lyon, France |
-| 941 | Marseille, France |
-| 2689 | Bordeaux, France |
-| 948 | Toulouse, France |
-| 945 | Nice, France |
-| 1 | Tel Aviv, Israel |
-| 2 | New York, USA |
-| 3 | London, UK |
+| 662 | Paris, France |
+| 3483 | Lyon, France |
+| 1562 | Marseille, France |
+| 924 | Bordeaux, France |
+| 1024 | Toulouse, France |
+| 3260 | Nice, France |
+| 1 | Israel (Tel Aviv) |
+| 121 | New York - New Jersey, USA |
+| 2122 | London, UK |
+
+> Metro IDs are extracted from Moovit URLs: `moovitapp.com/index/en/public_transit-{city}-{metroId}`
 
 ## Error Handling
 

@@ -203,7 +203,7 @@ export function resolveConfig(config: Partial<ResolvedConfig>): ResolvedConfig {
   const userKey = config.userKey || generateUserKey();
 
   return {
-    metroId: config.metroId ?? 61, // Paris, France
+    metroId: config.metroId ?? 662, // Paris, France
     language: config.language ?? 'EN',
     userKey,
     customerId: config.customerId ?? '4908',

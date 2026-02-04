@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(bash:*)",
+      "Bash(printf:*)",
+      "Bash(WAF_TOKEN=\"26ac0c56-ba3c-4a33-a139-d6e433ac8ab6:IAoAe2BUQzUUAAAA:XaBi93953bPcHkVP6P5VEI2Z1dHZ2omeCyRO4Vo+ab9HGh5uiVf5KIpN5rGNz/9wivNFlQmWh4h192RTbp3UDfLE5ZuzOiXssck0LEzpL+74m3Hee9mVlUkJcsALcJlFF2eK31vF5pBeQkLZogf3f74cf16F7R5kkr/8leDmGgnHUpSm46IqIXqVZSCQzQ==\":*)",
+      "Bash(__NEW_LINE_c35c8e188f336af4__ curl -s \"https://moovitapp.com/api/image?ids=13560\" -H \"moovit_app_type: WEB_TRIP_PLANNER\" -H \"moovit_client_version: 5.151.2/V567\" -H \"moovit_customer_id: 4908\" -H \"moovit_metro_id: 1\" -H \"moovit_phone_type: 2\" -H \"moovit_user_key: F36627\" -H \"moovit_gtfs_language: EN\" -H \"accept: application/json\" -H \"x-aws-waf-token: $WAF_TOKEN\" -w \"\\\\nHTTP_CODE: %{http_code}\")",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(xxd:*)",
+      "Bash(ls:*)",
+      "Bash(__NEW_LINE_bad892b927f1499f__ echo \"\")",
+      "Bash(python3:*)",
+      "Bash(python3 -c \"import struct; data = bytes.fromhex\\(''00000028c5958041''\\); print\\(f''  Lon: {struct.unpack\\(\"\"<d\"\", data\\)[0]}''\\)\")",
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:moovitapp.com)",
+      "Bash(tree:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh repo edit dortort/moovit-client --description \"TypeScript client library for Moovit public transit API - route planning, real-time arrivals, location search for 112+ countries\")",
+      "Bash(git rm:*)",
+      "Bash(git push:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}

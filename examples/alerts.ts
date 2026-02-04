@@ -7,7 +7,7 @@ import { MoovitClient, AlertSeverity, AlertEffect } from '../src';
 
 async function main() {
   const client = new MoovitClient({
-    metroId: 61, // Paris
+    metroId: 662, // Paris
     language: 'FR',
     debug: true,
   });

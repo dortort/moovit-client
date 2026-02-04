@@ -6,9 +6,9 @@
 import { MoovitClient } from '../src';
 
 async function main() {
-  // Create client for Paris (metroId: 61)
+  // Create client for Paris (metroId: 662)
   const client = new MoovitClient({
-    metroId: 61,
+    metroId: 662,
     language: 'FR',
     debug: true,
   });
