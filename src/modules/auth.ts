@@ -1,5 +1,5 @@
-import puppeteer, { Browser, Page, PuppeteerLaunchOptions } from 'puppeteer';
-import { AuthenticationError, TokenExpiredError } from '../errors';
+import puppeteer, { Browser, Page } from 'puppeteer';
+import { AuthenticationError } from '../errors';
 import { ResolvedConfig } from '../types/config';
 import { sleep } from '../utils/polling';
 

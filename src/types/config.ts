@@ -1,4 +1,4 @@
-import type { PuppeteerLaunchOptions } from 'puppeteer';
+import type { LaunchOptions } from 'puppeteer';
 
 /**
  * Moovit client configuration
@@ -27,7 +27,7 @@ export interface MoovitClientConfig {
   customerId?: string;
 
   /** Puppeteer launch options */
-  puppeteerOptions?: PuppeteerLaunchOptions;
+  puppeteerOptions?: LaunchOptions;
 
   /** WAF token refresh interval in ms. Default: 300000 (5 min) */
   tokenRefreshInterval?: number;
@@ -50,7 +50,7 @@ export interface ResolvedConfig {
   language: string;
   userKey: string;
   customerId: string;
-  puppeteerOptions: PuppeteerLaunchOptions;
+  puppeteerOptions: LaunchOptions;
   tokenRefreshInterval: number;
   defaultLat: number;
   defaultLon: number;

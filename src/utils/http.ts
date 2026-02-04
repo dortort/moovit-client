@@ -49,14 +49,14 @@ export class HttpClient {
       async (fetchUrl, fetchHeaders, fetchBody) => {
         const response = await fetch(fetchUrl, {
           method: 'POST',
-          headers: fetchHeaders as HeadersInit,
+          headers: fetchHeaders as Record<string, string>,
           body: JSON.stringify(fetchBody),
           credentials: 'include',
         });
 
         if (!response.ok) {
           return {
-            error: true,
+            error: true as const,
             status: response.status,
             statusText: response.statusText,
           };
@@ -64,7 +64,7 @@ export class HttpClient {
 
         const buffer = await response.arrayBuffer();
         return {
-          error: false,
+          error: false as const,
           data: Array.from(new Uint8Array(buffer)),
         };
       },
@@ -77,7 +77,7 @@ export class HttpClient {
       this.handleErrorResponse(result.status, endpoint);
     }
 
-    return new Uint8Array(result.data as number[]);
+    return new Uint8Array(result.data);
   }
 
   private buildUrl(endpoint: string, params?: Record<string, string>): string {
@@ -100,7 +100,7 @@ export class HttpClient {
       async (fetchUrl, fetchMethod, fetchHeaders, fetchBody) => {
         const options: RequestInit = {
           method: fetchMethod,
-          headers: fetchHeaders as HeadersInit,
+          headers: fetchHeaders as Record<string, string>,
           credentials: 'include',
         };
 
@@ -113,14 +113,14 @@ export class HttpClient {
 
         if (!response.ok) {
           return {
-            error: true,
+            error: true as const,
             status: response.status,
             statusText: response.statusText,
           };
         }
 
         const data = await response.json();
-        return { error: false, data };
+        return { error: false as const, data };
       },
       url,
       method,

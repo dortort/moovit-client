@@ -30,14 +30,6 @@ export class LocationNotFoundError extends MoovitError {
   }
 }
 
-export class UnknownAliasError extends MoovitError {
-  constructor(alias: string) {
-    super(`Unknown location alias: "${alias}"`);
-    this.name = 'UnknownAliasError';
-    Object.setPrototypeOf(this, UnknownAliasError.prototype);
-  }
-}
-
 export class RouteSearchError extends MoovitError {
   constructor(message: string) {
     super(message);

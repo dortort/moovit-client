@@ -6,12 +6,10 @@ import {
   LocationSearchResult,
   ResolvedConfig,
   CoordinateInput,
-  AliasInput,
   StopIdInput,
   TextInput,
 } from '../types';
-import { LocationNotFoundError, UnknownAliasError } from '../errors';
-import { LocationRegistry, defaultRegistry } from '../data/known-locations';
+import { LocationNotFoundError } from '../errors';
 import { encodeLocationQuery, decodeLocationResults } from '../utils/protobuf';
 import { buildProtobufHeaders } from '../utils/headers';
 import { toScaled } from '../utils/coordinates';
@@ -20,15 +18,10 @@ import { toScaled } from '../utils/coordinates';
  * Location resolver that handles all input types
  */
 export class LocationResolver {
-  private registry: LocationRegistry;
-
   constructor(
     private config: ResolvedConfig,
-    private page: Page,
-    registry?: LocationRegistry
-  ) {
-    this.registry = registry || defaultRegistry;
-  }
+    private page: Page
+  ) {}
 
   /**
    * Resolve any location input to a Location object
@@ -37,14 +30,12 @@ export class LocationResolver {
     switch (input.type) {
       case 'coordinates':
         return this.resolveCoordinates(input);
-      case 'alias':
-        return this.resolveAlias(input);
       case 'stopId':
         return this.resolveStopId(input);
       case 'text':
         return this.resolveText(input);
       default:
-        throw new Error(`Unknown location input type`);
+        throw new Error('Unknown location input type');
     }
   }
 
@@ -60,13 +51,11 @@ export class LocationResolver {
     const lat = nearLat ?? this.config.defaultLat;
     const lon = nearLon ?? this.config.defaultLon;
 
-    // Encode the query as protobuf
     const encoded = encodeLocationQuery(lat, lon, query);
     const base64 = Buffer.from(encoded).toString('base64');
 
     const headers = buildProtobufHeaders(this.config);
 
-    // Execute request through page context
     const responseBytes = await this.page.evaluate(
       async (queryB64: string, fetchHeaders: Record<string, string>) => {
         const response = await fetch('https://moovitapp.com/api/location', {
@@ -94,45 +83,6 @@ export class LocationResolver {
   }
 
   /**
-   * Register a user alias for a known location
-   */
-  registerAlias(alias: string, locationId: string): void {
-    this.registry.registerAlias(alias, locationId);
-  }
-
-  /**
-   * Register a custom known location
-   */
-  registerLocation(
-    id: string,
-    name: string,
-    lat: number,
-    lon: number,
-    aliases?: string[]
-  ): void {
-    this.registry.register({
-      id,
-      name,
-      coordinates: { lat, lon },
-      aliases,
-    });
-  }
-
-  /**
-   * List all known locations
-   */
-  listKnownLocations() {
-    return this.registry.list();
-  }
-
-  /**
-   * Get the underlying registry
-   */
-  getRegistry(): LocationRegistry {
-    return this.registry;
-  }
-
-  /**
    * Resolve coordinate input
    */
   private resolveCoordinates(input: CoordinateInput): Location {
@@ -145,32 +95,13 @@ export class LocationResolver {
   }
 
   /**
-   * Resolve alias input
-   */
-  private resolveAlias(input: AliasInput): Location {
-    const known = this.registry.get(input.name);
-
-    if (!known) {
-      throw new UnknownAliasError(input.name);
-    }
-
-    return {
-      id: 0,
-      type: LocationType.COORDINATE,
-      coordinates: known.coordinates,
-      caption: known.name,
-    };
-  }
-
-  /**
-   * Resolve stop ID input (experimental)
+   * Resolve stop ID input
    */
   private resolveStopId(input: StopIdInput): Location {
-    // For stop IDs, we use type=4 which tells the API it's a stop
     return {
       id: input.id,
       type: LocationType.STOP,
-      coordinates: { lat: 0, lon: 0 }, // Coordinates filled by API
+      coordinates: { lat: 0, lon: 0 },
       caption: `Stop ${input.id}`,
     };
   }

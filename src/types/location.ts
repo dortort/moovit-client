@@ -1,5 +1,3 @@
-import { Coordinates } from './common';
-
 /**
  * Coordinate-based location input
  */
@@ -7,14 +5,6 @@ export interface CoordinateInput {
   type: 'coordinates';
   lat: number;
   lon: number;
-}
-
-/**
- * Known location alias input
- */
-export interface AliasInput {
-  type: 'alias';
-  name: string;
 }
 
 /**
@@ -40,7 +30,7 @@ export interface TextInput {
 /**
  * Discriminated union of all location input types
  */
-export type LocationInput = CoordinateInput | AliasInput | StopIdInput | TextInput;
+export type LocationInput = CoordinateInput | StopIdInput | TextInput;
 
 /**
  * Result from location search
@@ -53,20 +43,4 @@ export interface LocationSearchResult {
   subtitle?: string;
   lat: number;
   lon: number;
-}
-
-/**
- * Known location definition
- */
-export interface KnownLocation {
-  /** Unique identifier (kebab-case) */
-  id: string;
-  /** Display name */
-  name: string;
-  /** Coordinates */
-  coordinates: Coordinates;
-  /** Optional aliases */
-  aliases?: string[];
-  /** Optional category */
-  category?: 'train-station' | 'bus-station' | 'airport' | 'landmark' | 'city-center';
 }
