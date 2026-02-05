@@ -72,23 +72,22 @@ export class MoovitClient {
    * Routes API
    */
   get routes() {
-    const self = this;
     return {
       /**
        * Search for routes between two locations
        */
-      async search(params: {
+      search: async (params: {
         from: LocationInput;
         to: LocationInput;
         departureTime?: Date;
         arrivalTime?: Date;
         routeTypes?: number[];
         preference?: number;
-      }): Promise<RouteSearchResult> {
-        self.ensureInitialized();
-        const from = await self.locationResolver.resolve(params.from);
-        const to = await self.locationResolver.resolve(params.to);
-        return self.routeService.search({ ...params, from, to });
+      }): Promise<RouteSearchResult> => {
+        this.ensureInitialized();
+        const from = await this.locationResolver.resolve(params.from);
+        const to = await this.locationResolver.resolve(params.to);
+        return this.routeService.search({ ...params, from, to });
       },
     };
   }
@@ -97,30 +96,29 @@ export class MoovitClient {
    * Lines and arrivals API
    */
   get lines() {
-    const self = this;
     return {
       /**
        * Get real-time arrivals for multiple line/stop pairs
        */
-      async getArrivals(pairs: LineStopPair[]): Promise<StopArrivals[]> {
-        self.ensureInitialized();
-        return self.linesService.getArrivals(pairs);
+      getArrivals: async (pairs: LineStopPair[]): Promise<StopArrivals[]> => {
+        this.ensureInitialized();
+        return this.linesService.getArrivals(pairs);
       },
 
       /**
        * Get real-time arrival for a single line at a stop
        */
-      async getLineArrival(lineId: number, stopId: number): Promise<StopArrivals | null> {
-        self.ensureInitialized();
-        return self.linesService.getLineArrival(lineId, stopId);
+      getLineArrival: async (lineId: number, stopId: number): Promise<StopArrivals | null> => {
+        this.ensureInitialized();
+        return this.linesService.getLineArrival(lineId, stopId);
       },
 
       /**
        * Get all transit agencies
        */
-      async getAgencies(): Promise<AgencyInfo[]> {
-        self.ensureInitialized();
-        return self.linesService.getAgencies();
+      getAgencies: async (): Promise<AgencyInfo[]> => {
+        this.ensureInitialized();
+        return this.linesService.getAgencies();
       },
     };
   }
@@ -129,26 +127,25 @@ export class MoovitClient {
    * Locations API
    */
   get locations() {
-    const self = this;
     return {
       /**
        * Resolve a location input to a Location object
        */
-      async resolve(input: LocationInput): Promise<Location> {
-        self.ensureInitialized();
-        return self.locationResolver.resolve(input);
+      resolve: async (input: LocationInput): Promise<Location> => {
+        this.ensureInitialized();
+        return this.locationResolver.resolve(input);
       },
 
       /**
        * Search for locations by text query
        */
-      async search(
+      search: async (
         query: string,
         nearLat?: number,
         nearLon?: number
-      ): Promise<LocationSearchResult[]> {
-        self.ensureInitialized();
-        return self.locationResolver.searchLocations(query, nearLat, nearLon);
+      ): Promise<LocationSearchResult[]> => {
+        this.ensureInitialized();
+        return this.locationResolver.searchLocations(query, nearLat, nearLon);
       },
     };
   }
@@ -157,30 +154,29 @@ export class MoovitClient {
    * Alerts API
    */
   get alerts() {
-    const self = this;
     return {
       /**
        * Get all active alerts
        */
-      async getAlerts(): Promise<Alert[]> {
-        self.ensureInitialized();
-        return self.alertsService.getAlerts();
+      getAlerts: async (): Promise<Alert[]> => {
+        this.ensureInitialized();
+        return this.alertsService.getAlerts();
       },
 
       /**
        * Get metro-level alerts
        */
-      async getMetroAlerts(): Promise<Alert[]> {
-        self.ensureInitialized();
-        return self.alertsService.getMetroAlerts();
+      getMetroAlerts: async (): Promise<Alert[]> => {
+        this.ensureInitialized();
+        return this.alertsService.getMetroAlerts();
       },
 
       /**
        * Get detailed information for a specific alert
        */
-      async getAlertDetails(alertId: number, language?: string): Promise<AlertDetails | null> {
-        self.ensureInitialized();
-        return self.alertsService.getAlertDetails(alertId, language);
+      getAlertDetails: async (alertId: number, language?: string): Promise<AlertDetails | null> => {
+        this.ensureInitialized();
+        return this.alertsService.getAlertDetails(alertId, language);
       },
     };
   }
@@ -189,29 +185,28 @@ export class MoovitClient {
    * Images API
    */
   get images() {
-    const self = this;
     return {
       /**
        * Get images by their IDs
        */
-      async getImages(ids: number[]): Promise<TransitImage[]> {
-        self.ensureInitialized();
-        return self.imagesService.getImages(ids);
+      getImages: async (ids: number[]): Promise<TransitImage[]> => {
+        this.ensureInitialized();
+        return this.imagesService.getImages(ids);
       },
 
       /**
        * Get a single image by ID
        */
-      async getImage(id: number): Promise<TransitImage | null> {
-        self.ensureInitialized();
-        return self.imagesService.getImage(id);
+      getImage: async (id: number): Promise<TransitImage | null> => {
+        this.ensureInitialized();
+        return this.imagesService.getImage(id);
       },
 
       /**
        * Clear the image cache
        */
-      clearCache(): void {
-        self.imagesService.clearCache();
+      clearCache: (): void => {
+        this.imagesService.clearCache();
       },
     };
   }
