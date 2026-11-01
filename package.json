@@ -33,7 +33,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "protobufjs": "^7.5.4",
+    "protobufjs": "^7.6.5",
     "puppeteer": "^24.36.1"
   },
   "devDependencies": {
