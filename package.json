@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "protobufjs": "^7.6.5",
-    "puppeteer": "^24.36.1"
+    "puppeteer": "^25.16.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
